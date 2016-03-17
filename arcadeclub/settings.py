@@ -134,9 +134,9 @@ import dj_database_url
 #DATABASE_URL = 'arcadeclub:///arcadeclubdb'
 #DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
-if os.environ.get('DATABASE_URL', None):
-    import dj_database_url
-    DATABASES['default'] = dj_database_url.config()
+#if os.environ.get('DATABASE_URL', None):
+#    import dj_database_url
+#    DATABASES['default'] = dj_database_url.config()
     #DATABASES = {'default': dj_database_url.parse(' postgres://srirywnldknugr:BhNj_ZgkYw4s9ChDx06uLfOwdd@ec2-54-204-35-207.compute-1.amazonaws.com:5432/d59ob1hcdkvtr8')}
 
 
