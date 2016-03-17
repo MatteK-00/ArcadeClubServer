@@ -128,7 +128,7 @@ STATIC_URL = '/static/'
 
 #ROBA HEROKU
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
+#import dj_database_url
 #DATABASES['default'] =  dj_database_url.config()    
 
 #DATABASE_URL = 'arcadeclub:///arcadeclubdb'
