@@ -22,7 +22,7 @@ def __webSearch(upc):
             try:
                 response = urllib2.urlopen(req)
                 page = response.read()
-                # print page
+                #print page
                 temp = page
                 temp = temp.split("Prices")
 
