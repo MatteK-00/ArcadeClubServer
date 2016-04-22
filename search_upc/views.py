@@ -24,7 +24,7 @@ def searchUpcRequest(request, upc):
         gioco = Gioco.objects.get(upc=upc)
     except Gioco.DoesNotExist:
         datiGioco = __webSearch(upc)
-        if (datiGioco['nome']==null):
+        if (datiGioco['nome']==None):
             return HttpResponse(status=404)
         gioco_nuovo = Gioco(upc=datiGioco['upc'], nome=datiGioco['nome'],anno=datiGioco['anno'],console=datiGioco['console'],immagine=datiGioco['immagine'])
         #gioco_nuovo.save()
