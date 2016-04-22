@@ -3,4 +3,6 @@ venv
 staticfiles
 ARC/
 mydb.dump
+ENV_ARC/
+arcadeclub/wsgi.py
 
