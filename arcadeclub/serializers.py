@@ -19,6 +19,11 @@ class MagazzinoSerializer(serializers.ModelSerializer):
         model = Magazzino
         fields = ('id_item','upc','nome','anno','console','stato','quality','prezzo_acquisto','data_acquisto','note')
 
+class MagazzinoSerializerShort(serializers.ModelSerializer):
+    class Meta:
+        model = Magazzino
+        fields = ('id_item','stato','quality','prezzo_acquisto','data_acquisto','note')
+
 class UpcResponseSerializer(serializers.ModelSerializer):
     upc = serializers.CharField(required=False, allow_blank=True, max_length=100)
     nome = serializers.CharField(required=False, allow_blank=True, max_length=100)
