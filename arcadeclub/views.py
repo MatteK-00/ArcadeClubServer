@@ -88,6 +88,6 @@ def utenti_loginRequest(request, username, pwd):
         return HttpResponse(status=204)
 
 
-#def utenti_detail(request):
-#	return HttpResponse(status=204)
+def magazzino_detail(request):
+	return HttpResponse(status=204)
 
