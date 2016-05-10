@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from arcadeclub.models import Utente, Magazzino, Gioco
+from arcadeclub.models import Utente, Magazzino, Gioco, Venduti
 
 
 class UtenteSerializer(serializers.ModelSerializer):
@@ -18,6 +18,11 @@ class MagazzinoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Magazzino
         fields = ('id_item','upc','nome','anno','console','stato','quality','prezzo_acquisto','data_acquisto','note')
+
+class VendutiSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Venduti
+        fields = ('id_item','upc','nome','anno','console','stato','quality','prezzo_acquisto','prezzo_vendita','data_acquisto','data_vendita','note')
 
 class MagazzinoSerializerShort(serializers.ModelSerializer):
     class Meta:

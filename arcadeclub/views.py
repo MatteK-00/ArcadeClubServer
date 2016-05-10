@@ -2,8 +2,9 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from arcadeclub.models import Utente
-from arcadeclub.serializers import UtenteSerializer
+from arcadeclub.models import Utente, Magazzino, Venduti
+from arcadeclub.serializers import UtenteSerializer, MagazzinoSerializer, VendutiSerializer
+import json
 
 class JSONResponse(HttpResponse):
     """
@@ -89,5 +90,42 @@ def utenti_loginRequest(request, username, pwd):
 
 
 def magazzino_detail(request):
-	return HttpResponse(status=204)
+    if request.method == 'GET':
+        print "SONO LA RICHIESTA! "
+        print request.GET.items
+        print request.GET.values
+        #id_item = request.GET.get("id_item",'')
+        upc  = request.GET.get("upc",'')
+        nome = request.GET.get("nome",'')
+        anno = request.GET.get("anno",'')
+        console = request.GET.get("console",'')
+        stato = request.GET.get("stato",'')
+        quality = request.GET.get("quality",'')
+        #prezzo_acquisto = request.GET.get("prezzo_acquisto",'')
+        #data_acquisto = request.GET.get("data_acquisto",'')
+        #note = request.GET.get("note",'') la ricerca per campi null e' un problema al momento
+
+        sold = request.GET.get("sold",'false')
+        
+        #magazzino = Magazzino.objects.filter(id_item__contains=id_item, upc__contains=upc, nome__contains=nome, anno__contains=anno,
+        #    console__contains=console, stato__contains=stato, quality__contains=quality, prezzo_acquisto__contains=prezzo_acquisto,
+        #    data_acquisto__contains=data_acquisto)
+
+        magazzino = Magazzino.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
+            console__contains=console, stato__contains=stato, quality__contains=quality)   #prezzo_vendita__isnull=False
+
+        venduti = [];
+        if (sold == "true"):
+            venduti = Venduti.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
+                console__contains=console, stato__contains=stato, quality__contains=quality)
+
+
+        magazzinoSerializzato = MagazzinoSerializer(magazzino,many=True)
+        vendutiSerializzato = VendutiSerializer(venduti,many=True)
+        
+        risposta = {}
+        risposta['in_magazzino'] = magazzinoSerializzato.data
+        risposta['venduti'] = vendutiSerializzato.data
+        json_data = json.dumps(risposta)
+        return HttpResponse(json_data)
 

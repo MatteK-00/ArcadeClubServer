@@ -58,9 +58,9 @@ from arcadeclub import views
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^arcadeclub$', views.utenti_list),
-    url(r'^arcadeclub/(?P<id>[0-9]+)/$', views.utenti_detail),
-    url(r'^arcadeclub/$' , views.magazzino_detail),
+    #url(r'^arcadeclub$', views.utenti_list),
+    #url(r'^arcadeclub/(?P<id>[0-9]+)/$', views.utenti_detail),
+    url(r'^arcadeclub/' , views.magazzino_detail),
     url(r'^arcadeclub/(?P<username>[a-z0-9]+)/(?P<pwd>[a-z0-9]+)/$', views.utenti_loginRequest),
     url(r'^search_upc/', include('search_upc.urls')),
 ]
