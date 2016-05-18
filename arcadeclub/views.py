@@ -164,6 +164,10 @@ def venduti_detail(request):
                 console=item_venduto.console,stato=item_venduto.stato,quality=item_venduto.quality,
                 prezzo_acquisto=item_venduto.prezzo_acquisto,data_acquisto=item_venduto.data_acquisto,
                 prezzo_vendita=prezzo,data_vendita=data,note=item_venduto.note)
+
+                vendutiSerializzato = VendutiSerializer(venduto,many=False)
+
+                print vendutiSerializzato.data
                 
                 venduto.save()
                 item_venduto.delete()

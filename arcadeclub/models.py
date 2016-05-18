@@ -167,13 +167,13 @@ class Magazzino(models.Model):
     id_item = models.AutoField(primary_key=True)
     upc = models.CharField(max_length=100, blank=True, null=True)
     nome = models.CharField(max_length=100)
-    anno = models.DecimalField(max_digits=4, decimal_places=0, blank=True, null=True)
+    anno = models.CharField(max_length=100, blank=True, null=True)
     console = models.CharField(max_length=100)
     stato = models.CharField(max_length=100)
-    quality = models.DecimalField(max_digits=6, decimal_places=0, blank=True, null=True)
-    prezzo_acquisto = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
+    quality = models.CharField(max_length=100)
+    prezzo_acquisto = models.CharField(max_length=100)
     data_acquisto = models.DateField(blank=True, null=True)
-    note = models.CharField(max_length=100, blank=True, null=True)
+    note = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -185,15 +185,15 @@ class Venduti(models.Model):
     id_item = models.AutoField(primary_key=True)
     upc = models.CharField(max_length=100, blank=True, null=True)
     nome = models.CharField(max_length=100)
-    anno = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    anno = models.CharField(max_length=100, blank=True, null=True)
     console = models.CharField(max_length=100)
     stato = models.CharField(max_length=100)
-    quality = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    prezzo_acquisto = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    prezzo_vendita = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    data_acquisto = models.DateField(blank=True, null=True)
-    data_vendita = models.DateField(blank=True, null=True)
-    note = models.CharField(max_length=100, blank=True, null=True)
+    quality = models.CharField(max_length=100)
+    prezzo_acquisto = models.CharField(max_length=100)
+    prezzo_vendita = models.CharField(max_length=100)
+    data_acquisto = models.CharField(max_length=100)
+    data_vendita = models.CharField(max_length=100)
+    note = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         managed = False
