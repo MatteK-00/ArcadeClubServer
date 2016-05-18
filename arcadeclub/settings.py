@@ -25,6 +25,8 @@ SECRET_KEY = '^zju*l!th%h3sx$dpu!cy*ckkuwlp$558qfkb6o9p8t4e0h=)h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CSRF_COOKIE_SECURE = False;
+
 ALLOWED_HOSTS = []
 
 
