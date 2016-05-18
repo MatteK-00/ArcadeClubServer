@@ -169,7 +169,7 @@ def venduti_detail(request):
                 item_venduto.delete()
                 return HttpResponse(status=200)
             
-            except MyModel.DoesNotExist:
+            except Magazzino.DoesNotExist:
                 return HttpResponse(status=404)
 
         return HttpResponse(status=204)
