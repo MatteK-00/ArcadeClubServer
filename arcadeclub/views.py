@@ -152,6 +152,8 @@ def venduti_detail(request):
         prezzo  = request.POST.get("prezzo",'')
         data  = request.POST.get("data",'')
 
+        print id_item + " " + prezzo + " " + data
+
         if id_item != "ERROR":
 
             item_venduto = Magazzino.objects.filter(id_item=id_item, many=False)
