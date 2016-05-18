@@ -147,11 +147,10 @@ def magazzino_detail(request):
 
 
 def venduti_detail(request):
-    if request.method == 'PUT':
-        print request.body
-        id_item  = request.PUT.get("id_item",'ERROR')
-        prezzo  = request.PUT.get("prezzo",'')
-        data  = request.PUT.get("data",'')
+    if request.method == 'POST':
+        id_item  = request.POST.get("id_item",'ERROR')
+        prezzo  = request.POST.get("prezzo",'')
+        data  = request.POST.get("data",'')
 
         if id_item != "ERROR":
 

@@ -25,7 +25,6 @@ SECRET_KEY = '^zju*l!th%h3sx$dpu!cy*ckkuwlp$558qfkb6o9p8t4e0h=)h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#SRF_COOKIE_SECURE = False;
 
 ALLOWED_HOSTS = []
 
@@ -47,6 +46,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',   #Con https e controllo dei cokies serve
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
