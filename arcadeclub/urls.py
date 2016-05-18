@@ -61,7 +61,7 @@ urlpatterns = [
     #url(r'^arcadeclub$', views.utenti_list),
     #url(r'^arcadeclub/(?P<id>[0-9]+)/$', views.utenti_detail),
     url(r'^arcadeclub/(?P<username>[a-z0-9]+)/(?P<pwd>[a-z0-9]+)/$', views.utenti_loginRequest),
-    url(r'^arcadeclub/' , views.magazzino_detail),
+    url(r'^arcadeclub/magazzino' , views.magazzino_detail),
     url(r'^search_upc/', include('search_upc.urls')),
 ]
 

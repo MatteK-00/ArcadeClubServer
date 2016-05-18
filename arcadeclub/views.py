@@ -92,8 +92,6 @@ def utenti_loginRequest(request, username, pwd):
 def magazzino_detail(request):
     if request.method == 'GET':
         print "SONO LA RICHIESTA! "
-        print request.GET.items
-        print request.GET.values
         #id_item = request.GET.get("id_item",'')
         upc  = request.GET.get("upc",'')
         nome = request.GET.get("nome",'')
@@ -128,4 +126,45 @@ def magazzino_detail(request):
         risposta['venduti'] = vendutiSerializzato.data
         json_data = json.dumps(risposta)
         return HttpResponse(json_data)
+
+    if reguest.method == 'PUT':
+        print "put al db"
+        upc  = request.PUT.get("upc",'')
+        nome = request.PUT.get("nome",'')
+        anno = request.PUT.get("anno",'')
+        console = request.PUT.get("console",'')
+        stato = request.PUT.get("stato",'')
+        quality = request.PUT.get("quality",'')
+        prezzo_acquisto = request.PUT.get("prezzo_acquisto",'')
+        data_acquisto = request.PUT.get("data_acquisto",'')
+        note = request.PUT.get("note",'')
+
+        item_nuovo = Magazzino(upc=upc, nome=nome,anno=anno,console=console,stato=stato,quality=quality,
+            prezzo_acquisto=prezzo_acquisto,data_acquisto=data_acquisto,note=note)
+        item_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
+        return HttpResponse(status=200)
+
+
+
+def venduti_detail(request):
+    if reguest.method == 'PUT':
+        id_item  = request.PUT.get("id_item",'ERROR')
+        prezzo  = request.PUT.get("prezzo",'')
+        data  = request.PUT.get("data",'')
+
+        if id_item != "ERROR":
+
+            item_venduto = Magazzino.objects.filter(id_item=id_item, many=False)
+
+            venduto = Venduti(upc=item_venduto['upc'],nome=item_venduto['nome'],anno=item_venduto['anno'],console=item_venduto['console'],
+                stato=item_venduto['stato'],quality=item_venduto['quality'],prezzo_acquisto=item_venduto['prezzo_acquisto'],
+                data_acquisto=item_venduto['data_acquisto'],note=item_venduto['note'],prezzo_vendita=item_venduto['prezzo'],
+                data_vendita=item_venduto['data'])
+
+            venduto.save()
+            item_venduto.delete()
+
+            return HttpResponse(status=200)
+
+        return HttpResponse(status=205)
 
