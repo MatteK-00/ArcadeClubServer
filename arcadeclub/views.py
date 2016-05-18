@@ -148,8 +148,8 @@ def magazzino_detail(request):
 
 def venduti_detail(request):
     if request.method == 'POST':
-        print "COSA A CASOOOOOOOOOOOOOOOOOOOOOOOO"
-        print request.POST.items
+        #print "COSA A CASOOOOOOOOOOOOOOOOOOOOOOOO"
+        #print request.POST.items
         id_item  = request.POST.get('id_item','ERROR')
         prezzo  = request.POST.get('prezzo','')
         data  = request.POST.get('data','')
@@ -157,18 +157,20 @@ def venduti_detail(request):
         print id_item + " " + prezzo + " " + data
 
         if id_item != "ERROR":
+            try: 
+                item_venduto = Magazzino.objects.get(id_item=id_item)
 
-            item_venduto = Magazzino.objects.filter(id_item=id_item)
-
-            venduto = Venduti(upc=item_venduto['upc'],nome=item_venduto['nome'],anno=item_venduto['anno'],console=item_venduto['console'],
-                stato=item_venduto['stato'],quality=item_venduto['quality'],prezzo_acquisto=item_venduto['prezzo_acquisto'],
-                data_acquisto=item_venduto['data_acquisto'],note=item_venduto['note'],prezzo_vendita=item_venduto['prezzo'],
-                data_vendita=item_venduto['data'])
-
-            venduto.save()
-            item_venduto.delete()
-
-            return HttpResponse(status=200)
+                venduto = Venduti(upc=item_venduto.upc,nome=item_venduto.nome,anno=item_venduto.anno,
+                console=item_venduto.console,stato=item_venduto.stato,quality=item_venduto.quality,
+                prezzo_acquisto=item_venduto.prezzo_acquisto,data_acquisto=item_venduto.data_acquisto,
+                prezzo_vendita=prezzo,data_vendita=data,note=item_venduto.note)
+                
+                venduto.save()
+                item_venduto.delete()
+                return HttpResponse(status=200)
+            
+            except MyModel.DoesNotExist:
+                return HttpResponse(status=404)
 
         return HttpResponse(status=204)
 
