@@ -148,7 +148,8 @@ def magazzino_detail(request):
 
 def venduti_detail(request):
     if request.method == 'POST':
-        print request.items
+        print "COSA A CASOOOOOOOOOOOOOOOOOOOOOOOO"
+        print request.POST.items
         id_item  = request.POST.get('id_item','ERROR')
         prezzo  = request.POST.get('prezzo','')
         data  = request.POST.get('data','')
@@ -157,7 +158,7 @@ def venduti_detail(request):
 
         if id_item != "ERROR":
 
-            item_venduto = Magazzino.objects.filter(id_item=id_item, many=False)
+            item_venduto = Magazzino.objects.filter(id_item=id_item)
 
             venduto = Venduti(upc=item_venduto['upc'],nome=item_venduto['nome'],anno=item_venduto['anno'],console=item_venduto['console'],
                 stato=item_venduto['stato'],quality=item_venduto['quality'],prezzo_acquisto=item_venduto['prezzo_acquisto'],
