@@ -148,7 +148,7 @@ def magazzino_detail(request):
 
 def venduti_detail(request):
     if request.method == 'POST':
-        print request.
+        #print request.
         id_item  = request.POST['id_item']
         prezzo  = request.POST.get('prezzo','')
         data  = request.POST.get('data','')
