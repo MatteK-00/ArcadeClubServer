@@ -148,13 +148,9 @@ def magazzino_detail(request):
 
 def venduti_detail(request):
     if request.method == 'POST':
-        #print "COSA A CASOOOOOOOOOOOOOOOOOOOOOOOO"
-        #print request.POST.items
         id_item  = request.POST.get('id_item','ERROR')
         prezzo  = request.POST.get('prezzo','')
         data  = request.POST.get('data','')
-
-        print id_item + " " + prezzo + " " + data
 
         if id_item != "ERROR":
             try: 
@@ -164,10 +160,6 @@ def venduti_detail(request):
                 console=item_venduto.console,stato=item_venduto.stato,quality=item_venduto.quality,
                 prezzo_acquisto=item_venduto.prezzo_acquisto,data_acquisto=item_venduto.data_acquisto,
                 prezzo_vendita=prezzo,data_vendita=data,note=item_venduto.note)
-
-                vendutiSerializzato = VendutiSerializer(venduto,many=False)
-
-                print vendutiSerializzato.data
                 
                 venduto.save()
                 item_venduto.delete()

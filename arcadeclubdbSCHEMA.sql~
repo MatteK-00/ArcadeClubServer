@@ -4,7 +4,7 @@ create schema arcadeclub;
 
 set search_path to arcadeclub;
 
-create domain condition as varchar CHECK (value = 'Sealed' OR value = 'Completo' OR value = 'Loose'OR value = 'Nol' );
+create domain condition as varchar CHECK (value = 'sealed' OR value = 'completo' OR value = 'loose'OR value = 'nol' );
 
 create table utente
 (

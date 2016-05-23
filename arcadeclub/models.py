@@ -156,7 +156,7 @@ class Gioco(models.Model):
     nome = models.CharField(max_length=100)
     anno = models.CharField(max_length=100, blank=True, null=True)
     console = models.CharField(max_length=100)
-    immagine = models.CharField(max_length=100, blank=True, null=True)
+    immagine = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False

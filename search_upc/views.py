@@ -9,6 +9,8 @@ from arcadeclub.views import JSONResponse
 from rest_framework import serializers
 from requestSito import __webSearch
 import json
+import base64
+import urllib
 
 from django.core.serializers import serialize
 
@@ -26,7 +28,10 @@ def searchUpcRequest(request, upc):
         datiGioco = __webSearch(upc)
         if (datiGioco['nome']==''):
             return HttpResponse(status=404)
-        gioco_nuovo = Gioco(upc=datiGioco['upc'], nome=datiGioco['nome'],anno=datiGioco['anno'],console=datiGioco['console'],immagine=datiGioco['immagine'])
+
+        resource = urllib.urlopen(datiGioco['immagine'])
+        encoded_string = base64.b64encode(resource.read())
+        gioco_nuovo = Gioco(upc=datiGioco['upc'], nome=datiGioco['nome'],anno=datiGioco['anno'],console=datiGioco['console'],immagine=encoded_string)
         #gioco_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
         #jsonarray = json.dumps(datiGioco)
         gioco_serializer = GiocoSerializer(gioco_nuovo, many=False)
