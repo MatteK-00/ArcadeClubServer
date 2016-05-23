@@ -1,23 +1,11 @@
-import urllib2
-import ssl
-from functools import wraps
-def sslwrap(func):
-    @wraps(func)
-    def bar(*args, **kw):
-        kw['ssl_version'] = ssl.PROTOCOL_TLSv1
-        return func(*args, **kw)
-    return bar
-
-ssl.wrap_socket = sslwrap(ssl.wrap_socket)
+import urllib
+#from lxml import html
 
 # upc = "008888322177"  # <-> 187 Ride or Die (ps2)
 # upc = "720238101804"  # <-> Exile (Sega Genesis)
 #upc = "045496730352"  # <-> donkey kong (gameboy)
 
 def __webSearch(upc):
-
-    ssl.wrap_socket = sslwrap(ssl.wrap_socket)
-
 
     sito = "http://videogames.pricecharting.com/search?q=" + upc
 
@@ -31,9 +19,11 @@ def __webSearch(upc):
         headers = {"User-Agent": user_agent}
 
         try:
-            req = urllib2.Request(sito, None, headers)
+            #req = urllib.Request(sito, None, headers)
+            req = urllib.urlopen(sito).read() 
             try:
-                response = urllib2.urlopen(req)
+                print req
+                response = urllib.urlopen(req)
                 page = response.read()
                 #print page
                 temp = page
@@ -49,7 +39,7 @@ def __webSearch(upc):
 
                 foto = page.split("<img src=\"")[1].split("\"")[0]
 
-            except urllib2.HTTPError, err:
+            except urllib.HTTPError, err:
                 if err.code == 404:
                     print "CodiceErrore err.code == 404"
                     return {"CodiceErrore":"err.code == 404"}
