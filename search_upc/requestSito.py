@@ -44,6 +44,7 @@ def __webSearch(upc):
                     print "CodiceErrore err.code ==" + err.code
                     return  {"CodiceErrore":"else"}
         except Exception, e:
+            print e
             pass
 
     print "nome:", titolo
