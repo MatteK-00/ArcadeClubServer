@@ -1,10 +1,23 @@
 import urllib2
+import ssl
+from functools import wraps
+def sslwrap(func):
+    @wraps(func)
+    def bar(*args, **kw):
+        kw['ssl_version'] = ssl.PROTOCOL_TLSv1
+        return func(*args, **kw)
+    return bar
+
+ssl.wrap_socket = sslwrap(ssl.wrap_socket)
 
 # upc = "008888322177"  # <-> 187 Ride or Die (ps2)
 # upc = "720238101804"  # <-> Exile (Sega Genesis)
 #upc = "045496730352"  # <-> donkey kong (gameboy)
 
 def __webSearch(upc):
+
+    ssl.wrap_socket = sslwrap(ssl.wrap_socket)
+
 
     sito = "http://videogames.pricecharting.com/search?q=" + upc
 
