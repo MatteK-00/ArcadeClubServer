@@ -1,26 +1,20 @@
 import urllib3
 import requests
 
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.poolmanager import PoolManager
-import ssl
+import certifi
 
-class MyAdapter(HTTPAdapter):
-    def init_poolmanager(self, connections, maxsize, block=False):
-        self.poolmanager = PoolManager(num_pools=connections,
-                                       maxsize=maxsize,
-                                       block=block,
-                                       ssl_version=ssl.PROTOCOL_TLSv1)
 
 def __webSearchNew(upc):
+    http = urllib3.PoolManager(
+    cert_reqs='CERT_REQUIRED', # Force certificate check.
+    ca_certs=certifi.where(),  # Path to the Certifi bundle.
+    )
 
-    sito = "http://videogames.pricecharting.com/search?q=" + upc
-
-    s = requests.Session()
-    s.mount('http://', MyAdapter())
-    r = s.get(sito)
-	# You're ready to make verified HTTPS requests.
+    # You're ready to make verified HTTPS requests.
     try:
-        print r.text
+        sito = "http://videogames.pricecharting.com/search?q=" + upc
+        r = http.request('GET', sito)
+
+        print r.data
     except urllib3.exceptions.SSLError as e:
         print e
