@@ -38,8 +38,10 @@ def __webSearch(upc):
 
             except urllib2.HTTPError, err:
                 if err.code == 404:
+                    print "CodiceErrore err.code == 404"
                     return {"CodiceErrore":"err.code == 404"}
                 else:
+                    print "CodiceErrore err.code ==" + err.code
                     return  {"CodiceErrore":"else"}
         except Exception, e:
             pass
