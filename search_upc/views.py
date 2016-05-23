@@ -8,6 +8,7 @@ from arcadeclub.serializers import GiocoSerializer,MagazzinoSerializer,Magazzino
 from arcadeclub.views import JSONResponse
 from rest_framework import serializers
 from requestSito import __webSearch
+from requestSitoNew import __webSearchNew
 import json
 import base64
 import urllib
@@ -25,7 +26,8 @@ def searchUpcRequest(request, upc):
     try:
         gioco = Gioco.objects.get(upc=upc)
     except Gioco.DoesNotExist:
-        datiGioco = __webSearch(upc)
+        #datiGioco = __webSearch(upc)
+        datiGioco = __webSearchNew(upc)
         if (datiGioco['nome']==''):
             return HttpResponse(status=404)
 
