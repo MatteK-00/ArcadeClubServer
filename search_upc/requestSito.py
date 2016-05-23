@@ -1,4 +1,4 @@
-import urllib
+import requests
 #from lxml import html
 
 # upc = "008888322177"  # <-> 187 Ride or Die (ps2)
@@ -20,9 +20,9 @@ def __webSearch(upc):
 
         try:
             #req = urllib.Request(sito, None, headers)
-            req = urllib.urlopen(sito).read() 
+            r = requests.get(sito)
             try:
-                print req
+                print r.text
                 response = urllib.urlopen(req)
                 page = response.read()
                 #print page
