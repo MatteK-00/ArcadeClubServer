@@ -17,7 +17,7 @@ def __webSearchNew(upc):
     sito = "http://videogames.pricecharting.com/search?q=" + upc
 
     s = requests.Session()
-    s.mount('https://', MyAdapter())
+    s.mount('http://', MyAdapter())
     r = s.get(sito)
 	# You're ready to make verified HTTPS requests.
     try:
