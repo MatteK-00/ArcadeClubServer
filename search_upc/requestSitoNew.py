@@ -33,6 +33,7 @@ def __webSearchNew(upc):
 
     except urllib3.exceptions.SSLError as e:
         print e
+        pass
 
     print "nome:", titolo
     print "anno:", anno
