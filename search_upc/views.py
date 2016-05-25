@@ -39,7 +39,7 @@ def searchUpcRequest(request, upc):
         gioco_serializer = GiocoSerializer(gioco_nuovo, many=False)
         risposta = {}
         risposta['info'] = gioco_serializer.data
-        risposta['item_list'] = {}
+        #risposta['item_list']
         json_data = json.dumps(risposta)
         return HttpResponse(json_data)
     if request.method == 'GET':
