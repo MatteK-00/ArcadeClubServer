@@ -12,6 +12,7 @@ from requestSitoNew import __webSearchNew
 import json
 import base64
 import urllib
+import time
 
 from django.core.serializers import serialize
 
@@ -33,9 +34,18 @@ def searchUpcRequest(request, upc):
 
         resource = urllib.urlopen(datiGioco['immagine'])
         encoded_string = base64.b64encode(resource.read())
-        gioco_nuovo = Gioco(upc=datiGioco['upc'], nome=datiGioco['nome'],anno=datiGioco['anno'],console=datiGioco['console'],immagine=encoded_string)
-        #gioco_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
-        #jsonarray = json.dumps(datiGioco)
+        timestamp = str(time.time()).replace(".","")
+        
+        gioco_nuovo = Gioco(upc=datiGioco['upc'], nome=datiGioco['nome'],anno=datiGioco['anno'],console=datiGioco['console'],immagine=timestamp)
+        
+        gioco_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
+        gioco = Gioco.objects.get(upc=upc)
+        id_gioco = gioco.id_gioco
+
+        out_file = open(id_gioco+"_"+timestamp,"w")
+        out_file.write(encoded_string)
+        out_file.close()
+
         gioco_serializer = GiocoSerializer(gioco_nuovo, many=False)
         risposta = {}
         risposta['info'] = gioco_serializer.data
