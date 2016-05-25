@@ -20,7 +20,7 @@ class JSONResponse(HttpResponse):
 @csrf_exempt
 def image(request,image_file):
     if request.method == 'GET':
-        in_file = open(image_file,"r")
+        in_file = open("image/"+image_file,"r")
         encoded_image = in_file.read()
         in_file.close()
         return HttpResponse(encoded_image)
