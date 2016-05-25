@@ -42,7 +42,7 @@ def searchUpcRequest(request, upc):
         gioco = Gioco.objects.get(upc=upc)
         id_gioco = gioco.id_gioco
 
-        out_file = open(id_gioco+"_"+timestamp,"w")
+        out_file = open("image/"+str(id_gioco) +"_"+timestamp,"w")
         out_file.write(encoded_string)
         out_file.close()
 
