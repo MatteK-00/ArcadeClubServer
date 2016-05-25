@@ -37,8 +37,11 @@ def searchUpcRequest(request, upc):
         #gioco_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
         #jsonarray = json.dumps(datiGioco)
         gioco_serializer = GiocoSerializer(gioco_nuovo, many=False)
-        return JSONResponse(gioco_serializer.data)#, status=201)
-
+        risposta = {}
+        risposta['info'] = gioco_serializer.data
+        risposta['item_list'] = {}
+        json_data = json.dumps(risposta)
+        return HttpResponse(json_data)
     if request.method == 'GET':
         #giochi = Magazzino.objects.filter(upc=upc)
         # serializedList = serialize('json', list(giochi), fields=('id_item','console','stato','prezzo_acquisto','upc','nome','quality','data_acquisto','note'))
