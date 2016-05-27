@@ -17,13 +17,24 @@ class JSONResponse(HttpResponse):
 
 
 
+def controlla_token(id_telefono):
+    n_result = Utente.objects.filter(device=id_telefono).count()
+    if (n_result > 0):
+        return True
+    else:
+        return False
+
+
 @csrf_exempt
-def image(request,image_file):
+def image(request,id_telefono,image_file):
     if request.method == 'GET':
-        in_file = open("image/"+image_file,"r")
-        encoded_image = in_file.read()
-        in_file.close()
-        return HttpResponse(encoded_image)
+        if (controlla_token(id_telefono)):
+            in_file = open("image/"+image_file,"r")
+            encoded_image = in_file.read()
+            in_file.close()
+            return HttpResponse(encoded_image,status=200)
+        else:
+            return HttpResponse(status=401)
 
 @csrf_exempt
 def utenti_list(request):
@@ -41,7 +52,7 @@ def utenti_list(request):
         #if serializer.is_valid():
         serializer.save()
         return JSONResponse(serializer.data, status=201)
-        return JSONResponse(serializer.errors, status=400)
+    return JSONResponse(serializer.errors, status=400)
 
 
 @csrf_exempt
@@ -96,84 +107,89 @@ def utenti_loginRequest(request, username, pwd):
         return HttpResponse(status=204)
 
 
-def magazzino_detail(request):
-    if request.method == 'GET':
-        print "SONO LA RICHIESTA! "
-        #id_item = request.GET.get("id_item",'')
-        upc  = request.GET.get("upc",'')
-        nome = request.GET.get("nome",'')
-        anno = request.GET.get("anno",'')
-        console = request.GET.get("console",'')
-        stato = request.GET.get("stato",'')
-        quality = request.GET.get("quality",'')
-        #prezzo_acquisto = request.GET.get("prezzo_acquisto",'')
-        #data_acquisto = request.GET.get("data_acquisto",'')
-        #note = request.GET.get("note",'') la ricerca per campi null e' un problema al momento
+def magazzino_detail(request,id_telefono):
+    print id_telefono
+    if (controlla_token(id_telefono)):
+        if request.method == 'GET':
+            print "SONO LA RICHIESTA! "
+            #id_item = request.GET.get("id_item",'')
+            upc  = request.GET.get("upc",'')
+            nome = request.GET.get("nome",'')
+            anno = request.GET.get("anno",'')
+            console = request.GET.get("console",'')
+            stato = request.GET.get("stato",'')
+            quality = request.GET.get("quality",'')
+            #prezzo_acquisto = request.GET.get("prezzo_acquisto",'')
+            #data_acquisto = request.GET.get("data_acquisto",'')
+            #note = request.GET.get("note",'') la ricerca per campi null e' un problema al momento
 
-        sold = request.GET.get("sold",'false')
-        
-        #magazzino = Magazzino.objects.filter(id_item__contains=id_item, upc__contains=upc, nome__contains=nome, anno__contains=anno,
-        #    console__contains=console, stato__contains=stato, quality__contains=quality, prezzo_acquisto__contains=prezzo_acquisto,
-        #    data_acquisto__contains=data_acquisto)
-
-        magazzino = Magazzino.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
-            console__contains=console, stato__contains=stato, quality__contains=quality)   #prezzo_vendita__isnull=False
-
-        venduti = [];
-        if (sold == "true"):
-            venduti = Venduti.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
-                console__contains=console, stato__contains=stato, quality__contains=quality)
-
-
-        magazzinoSerializzato = MagazzinoSerializer(magazzino,many=True)
-        vendutiSerializzato = VendutiSerializer(venduti,many=True)
-        
-        risposta = {}
-        risposta['in_magazzino'] = magazzinoSerializzato.data
-        risposta['venduti'] = vendutiSerializzato.data
-        json_data = json.dumps(risposta)
-        return HttpResponse(json_data)
-
-    if reguest.method == 'PUT':
-        print "put al db"
-        upc  = request.PUT.get("upc",'')
-        nome = request.PUT.get("nome",'')
-        anno = request.PUT.get("anno",'')
-        console = request.PUT.get("console",'')
-        stato = request.PUT.get("stato",'')
-        quality = request.PUT.get("quality",'')
-        prezzo_acquisto = request.PUT.get("prezzo_acquisto",'')
-        data_acquisto = request.PUT.get("data_acquisto",'')
-        note = request.PUT.get("note",'')
-
-        item_nuovo = Magazzino(upc=upc, nome=nome,anno=anno,console=console,stato=stato,quality=quality,
-            prezzo_acquisto=prezzo_acquisto,data_acquisto=data_acquisto,note=note)
-        item_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
-        return HttpResponse(status=200)
-
-
-
-def venduti_detail(request):
-    if request.method == 'POST':
-        id_item  = request.POST.get('id_item','ERROR')
-        prezzo  = request.POST.get('prezzo','')
-        data  = request.POST.get('data','')
-
-        if id_item != "ERROR":
-            try: 
-                item_venduto = Magazzino.objects.get(id_item=id_item)
-
-                venduto = Venduti(upc=item_venduto.upc,nome=item_venduto.nome,anno=item_venduto.anno,
-                console=item_venduto.console,stato=item_venduto.stato,quality=item_venduto.quality,
-                prezzo_acquisto=item_venduto.prezzo_acquisto,data_acquisto=item_venduto.data_acquisto,
-                prezzo_vendita=prezzo,data_vendita=data,note=item_venduto.note)
-                
-                venduto.save()
-                item_venduto.delete()
-                return HttpResponse(status=200)
+            sold = request.GET.get("sold",'false')
             
-            except Magazzino.DoesNotExist:
-                return HttpResponse(status=404)
+            #magazzino = Magazzino.objects.filter(id_item__contains=id_item, upc__contains=upc, nome__contains=nome, anno__contains=anno,
+            #    console__contains=console, stato__contains=stato, quality__contains=quality, prezzo_acquisto__contains=prezzo_acquisto,
+            #    data_acquisto__contains=data_acquisto)
 
-        return HttpResponse(status=204)
+            magazzino = Magazzino.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
+                console__contains=console, stato__contains=stato, quality__contains=quality)   #prezzo_vendita__isnull=False
 
+            venduti = [];
+            if (sold == "true"):
+                venduti = Venduti.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
+                    console__contains=console, stato__contains=stato, quality__contains=quality)
+
+
+            magazzinoSerializzato = MagazzinoSerializer(magazzino,many=True)
+            vendutiSerializzato = VendutiSerializer(venduti,many=True)
+            
+            risposta = {}
+            risposta['in_magazzino'] = magazzinoSerializzato.data
+            risposta['venduti'] = vendutiSerializzato.data
+            json_data = json.dumps(risposta)
+            return HttpResponse(json_data)
+
+        if reguest.method == 'PUT':
+            print "put al db"
+            upc  = request.PUT.get("upc",'')
+            nome = request.PUT.get("nome",'')
+            anno = request.PUT.get("anno",'')
+            console = request.PUT.get("console",'')
+            stato = request.PUT.get("stato",'')
+            quality = request.PUT.get("quality",'')
+            prezzo_acquisto = request.PUT.get("prezzo_acquisto",'')
+            data_acquisto = request.PUT.get("data_acquisto",'')
+            note = request.PUT.get("note",'')
+
+            item_nuovo = Magazzino(upc=upc, nome=nome,anno=anno,console=console,stato=stato,quality=quality,
+                prezzo_acquisto=prezzo_acquisto,data_acquisto=data_acquisto,note=note)
+            item_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
+            return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=401)
+
+
+
+def venduti_detail(request,id_telefono):
+    if (controlla_token(id_telefono)):
+        if request.method == 'POST':
+            id_item  = request.POST.get('id_item','ERROR')
+            prezzo  = request.POST.get('prezzo','')
+            data  = request.POST.get('data','')
+
+            if id_item != "ERROR":
+                try: 
+                    item_venduto = Magazzino.objects.get(id_item=id_item)
+
+                    venduto = Venduti(upc=item_venduto.upc,nome=item_venduto.nome,anno=item_venduto.anno,
+                    console=item_venduto.console,stato=item_venduto.stato,quality=item_venduto.quality,
+                    prezzo_acquisto=item_venduto.prezzo_acquisto,data_acquisto=item_venduto.data_acquisto,
+                    prezzo_vendita=prezzo,data_vendita=data,note=item_venduto.note)
+                    
+                    venduto.save()
+                    item_venduto.delete()
+                    return HttpResponse(status=200)
+                
+                except Magazzino.DoesNotExist:
+                    return HttpResponse(status=404)
+            return HttpResponse(status=204)
+    else:
+        return HttpResponse(status=401)

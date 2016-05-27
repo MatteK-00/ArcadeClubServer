@@ -61,9 +61,9 @@ urlpatterns = [
     #url(r'^arcadeclub$', views.utenti_list),
     #url(r'^arcadeclub/(?P<id>[0-9]+)/$', views.utenti_detail),
     url(r'^arcadeclub/(?P<username>[a-z0-9]+)/(?P<pwd>[a-z0-9]+)/$', views.utenti_loginRequest),
-    url(r'^arcadeclub/immagine/(?P<image_file>[a-z_0-9]+)/$', views.image),
-    url(r'^arcadeclub/magazzino' , views.magazzino_detail),
-    url(r'^arcadeclub/venduti' , views.venduti_detail),
+    url(r'^arcadeclub/(?P<id_telefono>[a-z0-9]+)/immagine/(?P<image_file>[a-z_0-9]+)/$', views.image),
+    url(r'^arcadeclub/(?P<id_telefono>[a-z0-9]+)/magazzino', views.magazzino_detail),
+    url(r'^arcadeclub/(?P<id_telefono>[a-z0-9]+)/venduti', views.venduti_detail),
     url(r'^search_upc/', include('search_upc.urls')),
 ]
 
