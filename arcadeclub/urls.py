@@ -64,6 +64,6 @@ urlpatterns = [
     url(r'^arcadeclub/(?P<id_telefono>[a-z0-9]+)/immagine/(?P<image_file>[a-z_0-9]+)/$', views.image),
     url(r'^arcadeclub/(?P<id_telefono>[a-z0-9]+)/magazzino', views.magazzino_detail),
     url(r'^arcadeclub/(?P<id_telefono>[a-z0-9]+)/venduti', views.venduti_detail),
-    url(r'^search_upc/', include('search_upc.urls')),
+    url(r'^arcadeclub/(?P<id_telefono>[a-z0-9]+)/search_upc/(?P<upc>[a-z_0-9]+)/$', include('search_upc.urls')),
 ]
 
