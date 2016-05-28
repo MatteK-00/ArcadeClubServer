@@ -2,8 +2,12 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from arcadeclub.models import Utente, Magazzino, Venduti
-from arcadeclub.serializers import UtenteSerializer, MagazzinoSerializer, VendutiSerializer
+from arcadeclub.models import Utente, Magazzino, Venduti, Gioco
+from arcadeclub.serializers import UtenteSerializer, MagazzinoSerializer, VendutiSerializer, GiocoSerializer, MagazzinoSerializerShort
+from requestSitoNew import __webSearchNew
+import base64
+import urllib
+import time
 import json
 
 class JSONResponse(HttpResponse):
