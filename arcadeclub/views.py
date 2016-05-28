@@ -153,15 +153,15 @@ def magazzino_detail(request,id_telefono):
 
         if request.method == 'POST':
             print "put al db"
-            upc  = request.PUT.get("upc",'')
-            nome = request.PUT.get("nome",'')
-            anno = request.PUT.get("anno",'')
-            console = request.PUT.get("console",'')
-            stato = request.PUT.get("stato",'')
-            quality = request.PUT.get("quality",'')
-            prezzo_acquisto = request.PUT.get("prezzo_acquisto",'')
-            data_acquisto = request.PUT.get("data_acquisto",'')
-            note = request.PUT.get("note",'')
+            upc  = request.POST.get("upc",'')
+            nome = request.POST.get("nome",'')
+            anno = request.POST.get("anno",'')
+            console = request.POST.get("console",'')
+            stato = request.POST.get("stato",'')
+            quality = request.POST.get("quality",'')
+            prezzo_acquisto = request.POST.get("prezzo_acquisto",'')
+            data_acquisto = request.POST.get("data_acquisto",'')
+            note = request.POST.get("note",'')
 
             item_nuovo = Magazzino(upc=upc, nome=nome,anno=anno,console=console,stato=stato,quality=quality,
                 prezzo_acquisto=prezzo_acquisto,data_acquisto=data_acquisto,note=note)
