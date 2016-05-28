@@ -151,7 +151,7 @@ def magazzino_detail(request,id_telefono):
             json_data = json.dumps(risposta)
             return HttpResponse(json_data)
 
-        if reguest.method == 'POST':
+        if request.method == 'POST':
             print "put al db"
             upc  = request.PUT.get("upc",'')
             nome = request.PUT.get("nome",'')
