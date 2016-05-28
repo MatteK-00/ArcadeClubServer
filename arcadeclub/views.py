@@ -164,7 +164,7 @@ def magazzino_detail(request,id_telefono):
             note = request.POST.get("note",'')
 
             item_nuovo = Magazzino(upc=upc, nome=nome,anno=anno,console=console,stato=stato,quality=quality,
-                prezzo_acquisto=prezzo_acquisto,data_acquisto=data_acquisto,note=note)
+                data_acquisto=data_acquisto,prezzo_acquisto=prezzo_acquisto,note=note)
             item_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
             return HttpResponse(status=200)
     else:
