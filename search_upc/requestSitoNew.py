@@ -27,7 +27,7 @@ def __webSearchNew(upc):
         console = console.replace("(", "").replace(")", "").replace(" ", "")
 
         anno = (page.split("class=\"date\">")[1]).split("<")[0]
-        anno = anno.replace(",","")
+        anno = anno.replace("\\,","")
 
         foto = page.split("<img src=\"")[1].split("\"")[0]
 

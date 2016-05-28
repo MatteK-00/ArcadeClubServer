@@ -55,7 +55,7 @@ create table venduti
 	note varchar
 );
 
-INSERT INTO utente (username,pwd,device) VALUES ('pippo','cane','idtel');
+INSERT INTO utente (username,pwd,device) VALUES ('pippo','cane','9c52e085b2ea7cab');
 INSERT INTO gioco (upc,nome,anno,console,immagine) VALUES ('3286010000057','nome prova','1999','xbox one',NULL);
 INSERT INTO gioco (upc,nome,anno,console,immagine) VALUES ('4286010000057','nome prova','1998','xbox one',NULL);
 INSERT INTO gioco (upc,nome,anno,console,immagine) VALUES ('5286010000057','nome prova','2000','xbox one',NULL);
