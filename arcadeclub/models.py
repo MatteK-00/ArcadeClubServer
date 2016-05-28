@@ -172,7 +172,7 @@ class Magazzino(models.Model):
     stato = models.CharField(max_length=100)
     quality = models.CharField(max_length=100)
     prezzo_acquisto = models.CharField(max_length=100)
-    data_acquisto = models.DateField(blank=True, null=True)
+    data_acquisto = models.CharField(max_length=100)
     note = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
