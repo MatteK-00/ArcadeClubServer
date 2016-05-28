@@ -22,7 +22,7 @@ def __webSearchNew(upc):
 
         titolo = temp[0].split("<title>")[1]
 
-        console = temp[1].split(" | Compare Loose")[0]git pu
+        console = temp[1].split(" | Compare Loose")[0]
 
         console = console.replace("(", "").replace(")", "").replace(" ", "")
 
