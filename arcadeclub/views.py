@@ -33,6 +33,10 @@ def controlla_token(id_telefono):
 def image(request,id_telefono,image_file):
     if request.method == 'GET':
         if (controlla_token(id_telefono)):
+            if "_" not in image_file:
+                gioco = Gioco.objects.get(upc=image_file)
+                image_file = gioco.id_gioco + "_" + gioco.immagine
+
             in_file = open("image/"+image_file,"r")
             encoded_image = in_file.read()
             in_file.close()
