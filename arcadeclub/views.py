@@ -214,7 +214,8 @@ def searchUpcRequest(request,id_telefono):
     """
     if (controlla_token(id_telefono)):
         try:
-            upc  = request.GET.get("upc",'')
+            upc  = request.GET.get("upc",'no_upc')
+            print upc
             gioco = Gioco.objects.get(upc=upc)
         except Gioco.DoesNotExist:
             #datiGioco = __webSearch(upc)
