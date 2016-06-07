@@ -208,7 +208,7 @@ def venduti_detail(request,id_telefono):
 
 
 @csrf_exempt
-def searchUpcRequest(request,id_telefono,upc):
+def searchUpcRequest(request,id_telefono):
     """
     Retrieve, update or delete a code gioco e magazzino.
     """
