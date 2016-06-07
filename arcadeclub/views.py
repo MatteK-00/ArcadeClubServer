@@ -141,6 +141,7 @@ def magazzino_detail(request,id_telefono):
             magazzino = Magazzino.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
                 console__contains=console, stato__contains=stato, quality__contains=quality)   #prezzo_vendita__isnull=False
 
+            print sold
             venduti = [];
             if (sold == "true"):
                 venduti = Venduti.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
@@ -149,8 +150,6 @@ def magazzino_detail(request,id_telefono):
 
             magazzinoSerializzato = MagazzinoSerializer(magazzino,many=True)
             vendutiSerializzato = VendutiSerializer(venduti,many=True)
-            
-            print vendutiSerializzato.data
 
             risposta = {}
             risposta['in_magazzino'] = magazzinoSerializzato.data
