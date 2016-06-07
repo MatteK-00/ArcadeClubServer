@@ -134,7 +134,7 @@ def magazzino_detail(request,id_telefono):
 
             sold = request.GET.get("sold",'false')
 
-            print nome
+            print request.GET
             
             #magazzino = Magazzino.objects.filter(id_item__contains=id_item, upc__contains=upc, nome__contains=nome, anno__contains=anno,
             #    console__contains=console, stato__contains=stato, quality__contains=quality, prezzo_acquisto__contains=prezzo_acquisto,
