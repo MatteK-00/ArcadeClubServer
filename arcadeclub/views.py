@@ -213,37 +213,38 @@ def searchUpcRequest(request,id_telefono):
     Retrieve, update or delete a code gioco e magazzino.
     """
     if (controlla_token(id_telefono)):
-        try:
-            upc  = request.GET.get("upc",'no_upc')
-            print request
-            gioco = Gioco.objects.get(upc=upc)
-        except Gioco.DoesNotExist:
-            #datiGioco = __webSearch(upc)
-            datiGioco = __webSearchNew(upc)
-            if (datiGioco['nome']==''):
-                return HttpResponse(status=404)
-
-            resource = urllib.urlopen(datiGioco['immagine'])
-            encoded_string = base64.b64encode(resource.read())
-            timestamp = str(time.time()).replace(".","")
-            
-            gioco_nuovo = Gioco(upc=datiGioco['upc'], nome=datiGioco['nome'],anno=datiGioco['anno'],console=datiGioco['console'],immagine=timestamp)
-            
-            gioco_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
-            gioco = Gioco.objects.get(upc=upc)
-            id_gioco = gioco.id_gioco
-
-            out_file = open("image/"+str(id_gioco) +"_"+timestamp,"w")
-            out_file.write(encoded_string)
-            out_file.close()
-
-            gioco_serializer = GiocoSerializer(gioco_nuovo, many=False)
-            risposta = {}
-            risposta['info'] = gioco_serializer.data
-            #risposta['item_list']
-            json_data = json.dumps(risposta)
-            return HttpResponse(json_data)
         if request.method == 'GET':
+            try:
+                upc  = request.GET.get("upc",'no_upc')
+                gioco = Gioco.objects.get(upc=upc)
+            except Gioco.DoesNotExist:
+                #datiGioco = __webSearch(upc)
+                datiGioco = __webSearchNew(upc)
+                if (datiGioco['nome']==''):
+                    return HttpResponse(status=404)
+
+                resource = urllib.urlopen(datiGioco['immagine'])
+                encoded_string = base64.b64encode(resource.read())
+                timestamp = str(time.time()).replace(".","")
+                
+                gioco_nuovo = Gioco(upc=datiGioco['upc'], nome=datiGioco['nome'],anno=datiGioco['anno'],console=datiGioco['console'],immagine=timestamp)
+                
+                gioco_nuovo.save()    #SALVA NEL DB SE PRIMA NON ERA PRESENTE - IMPORTANTE!
+                gioco = Gioco.objects.get(upc=upc)
+                id_gioco = gioco.id_gioco
+
+                out_file = open("image/"+str(id_gioco) +"_"+timestamp,"w")
+                out_file.write(encoded_string)
+                out_file.close()
+
+                gioco_serializer = GiocoSerializer(gioco_nuovo, many=False)
+                risposta = {}
+                risposta['info'] = gioco_serializer.data
+                #risposta['item_list']
+                json_data = json.dumps(risposta)
+                return HttpResponse(json_data)
+
+
             #giochi = Magazzino.objects.filter(upc=upc)
             # serializedList = serialize('json', list(giochi), fields=('id_item','console','stato','prezzo_acquisto','upc','nome','quality','data_acquisto','note'))
             # serializer = GiocoSerializer(gioco, many=False)
