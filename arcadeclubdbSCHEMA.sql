@@ -25,7 +25,7 @@ create table magazzino
 	stato condition NOT NULL,
 	quality numeric CHECK (quality > 0 AND quality < 6),
 	prezzo_acquisto numeric,
-	data_acquisto DATE,
+	data_acquisto varchar,
 	note varchar
 );
 
@@ -50,12 +50,13 @@ create table venduti
 	quality numeric CHECK (quality > 0 AND quality < 6),
 	prezzo_acquisto numeric,
 	prezzo_vendita numeric,
-	data_acquisto DATE,
-	data_vendita DATE,
+	data_acquisto varchar,
+	data_vendita varchar,
 	note varchar
 );
 
 INSERT INTO utente (username,pwd,device) VALUES ('pippo','cane','9c52e085b2ea7cab');
+INSERT INTO utente (username,pwd,device) VALUES ('pippo2','cane2','d57d4238fd3e7f56');
 INSERT INTO gioco (upc,nome,anno,console,immagine) VALUES ('3286010000057','nome prova','1999','xbox one',NULL);
 INSERT INTO gioco (upc,nome,anno,console,immagine) VALUES ('4286010000057','nome prova','1998','xbox one',NULL);
 INSERT INTO gioco (upc,nome,anno,console,immagine) VALUES ('5286010000057','nome prova','2000','xbox one',NULL);
