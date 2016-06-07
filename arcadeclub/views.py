@@ -133,6 +133,8 @@ def magazzino_detail(request,id_telefono):
             #note = request.GET.get("note",'') la ricerca per campi null e' un problema al momento
 
             sold = request.GET.get("sold",'false')
+
+            print nome
             
             #magazzino = Magazzino.objects.filter(id_item__contains=id_item, upc__contains=upc, nome__contains=nome, anno__contains=anno,
             #    console__contains=console, stato__contains=stato, quality__contains=quality, prezzo_acquisto__contains=prezzo_acquisto,
@@ -141,7 +143,6 @@ def magazzino_detail(request,id_telefono):
             magazzino = Magazzino.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
                 console__contains=console, stato__contains=stato, quality__contains=quality)   #prezzo_vendita__isnull=False
 
-            print sold
             venduti = [];
             if (sold == "true"):
                 venduti = Venduti.objects.filter(upc__contains=upc, nome__contains=nome, anno__contains=anno,
