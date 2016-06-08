@@ -101,7 +101,7 @@ def utenti_loginRequest(request, username, pwd):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        return JSONResponse(utente.device)
+        return JSONResponse(utente.device,status=200)
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
