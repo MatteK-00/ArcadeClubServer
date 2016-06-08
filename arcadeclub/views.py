@@ -173,6 +173,7 @@ def magazzino_detail(request,id_telefono):
             prezzo_acquisto = request.POST.get("prezzo_acquisto",'')
             data_acquisto = request.POST.get("data_acquisto",'')
             note = request.POST.get("note",'')
+            print request
 
             item_nuovo = Magazzino(upc=upc, nome=nome,anno=anno,console=console,stato=stato,quality=quality,
                 data_acquisto=data_acquisto,prezzo_acquisto=prezzo_acquisto,note=note)
@@ -223,12 +224,12 @@ def searchUpcRequest(request,id_telefono):
                 gioco = Gioco.objects.get(upc=upc)
             except Gioco.DoesNotExist:
                 #datiGioco = __webSearch(upc)
-                try:
-                    datiGioco = __webSearchNew(upc)
-                except "list index out of range":
-                    print "PROVA"
+
+                datiGioco = __webSearchNew(upc)
                 if (datiGioco['nome']==''):
                     return HttpResponse(status=404)
+                if (datiGioco['nome']=='errore2'):
+                    return HttpResponse(status=500)
 
                 resource = urllib.urlopen(datiGioco['immagine'])
                 encoded_string = base64.b64encode(resource.read())

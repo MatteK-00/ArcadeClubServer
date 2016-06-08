@@ -31,10 +31,12 @@ def __webSearchNew(upc):
 
         foto = page.split("<img src=\"")[1].split("\"")[0]
 
-
     except urllib3.exceptions.SSLError as e:
         print e
         pass
+
+    except Exception, e:
+        return {'nome':'errore2'}
 
     print "nome:", titolo
     print "anno:", anno
