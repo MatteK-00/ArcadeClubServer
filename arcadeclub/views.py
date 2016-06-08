@@ -34,7 +34,7 @@ def image(request,id_telefono):
     if request.method == 'GET':
         if (controlla_token(id_telefono)):
             image_file = request.GET.get("id",'no-id')
-            if image_file != 'no-id'
+            if (image_file != 'no-id'):
                 if "_" not in image_file:
                     print "sono qui: "+ image_file
                     gioco = Gioco.objects.get(upc=image_file)
