@@ -224,7 +224,7 @@ def searchUpcRequest(request,id_telefono):
                 gioco = Gioco.objects.get(upc=upc)
             except Gioco.DoesNotExist:
                 #datiGioco = __webSearch(upc)
-
+                print "ricerco nel sito"
                 datiGioco = __webSearchNew(upc)
                 if (datiGioco['nome']==''):
                     return HttpResponse(status=404)
@@ -274,7 +274,7 @@ def searchUpcRequest(request,id_telefono):
 
             #return HttpResponse([jsonGioco,jsonList])
 
-        elif request.method == 'PUT':
+        elif request.method == 'POST':
             data = JSONParser().parse(request)
             serializer = UtenteSerializer(utente, data=data)
             if serializer.is_valid():
