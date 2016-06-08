@@ -30,18 +30,22 @@ def controlla_token(id_telefono):
 
 
 @csrf_exempt
-def image(request,id_telefono,image_file):
+def image(request,id_telefono):
     if request.method == 'GET':
         if (controlla_token(id_telefono)):
-            if "_" not in image_file:
-                print "sono qui: "+ image_file
-                gioco = Gioco.objects.get(upc=image_file)
-                image_file = str(gioco.id_gioco) + "_" + str(gioco.immagine)
+            image_file = request.GET.get("id",'no-id')
+            if image_file != 'no-id'
+                if "_" not in image_file:
+                    print "sono qui: "+ image_file
+                    gioco = Gioco.objects.get(upc=image_file)
+                    image_file = str(gioco.id_gioco) + "_" + str(gioco.immagine)
 
-            in_file = open("image/"+image_file,"r")
-            encoded_image = in_file.read()
-            in_file.close()
-            return HttpResponse(encoded_image,status=200)
+                in_file = open("image/"+image_file,"r")
+                encoded_image = in_file.read()
+                in_file.close()
+                return HttpResponse(encoded_image,status=200)
+            else:
+                return HttpResponse(status=404)
         else:
             return HttpResponse(status=401)
 
