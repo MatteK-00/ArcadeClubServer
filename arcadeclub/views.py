@@ -188,6 +188,7 @@ def venduti_detail(request,id_telefono):
     if (controlla_token(id_telefono)):
         if request.method == 'POST':
             print "vendo oggetto"
+            print request
             id_item  = request.POST.get('id_item','ERROR')
             prezzo  = request.POST.get('prezzo','')
             data  = request.POST.get('data','')
