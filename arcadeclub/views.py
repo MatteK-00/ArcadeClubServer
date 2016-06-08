@@ -223,7 +223,10 @@ def searchUpcRequest(request,id_telefono):
                 gioco = Gioco.objects.get(upc=upc)
             except Gioco.DoesNotExist:
                 #datiGioco = __webSearch(upc)
-                datiGioco = __webSearchNew(upc)
+                try:
+                    datiGioco = __webSearchNew(upc)
+                except "list index out of range":
+                    print "PROVA"
                 if (datiGioco['nome']==''):
                     return HttpResponse(status=404)
 
